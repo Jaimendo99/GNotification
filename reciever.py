@@ -1,11 +1,16 @@
+import ENV_VAR
 import pika
 import logging
 import requests
 
 logger = logging.getLogger(__name__)
 
+RABBITMQ_USERNAME = ENV_VAR.RABBITMQ_USERNAME
+RABBITMQ_PASSWORD = ENV_VAR.RABBITMQ_PASSWORD
+
+
 try:
-    credentials = pika.PlainCredentials('jaimendo', '1209')
+    credentials = pika.PlainCredentials(RABBITMQ_USERNAME, RABBITMQ_PASSWORD)
     connection = pika.BlockingConnection(pika.ConnectionParameters('192.168.100.141', credentials=credentials))
     channel = connection.channel()
     channel.exchange_declare(exchange='g_notifications', exchange_type='fanout')
