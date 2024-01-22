@@ -11,16 +11,13 @@ logger = logging.getLogger(__name__)
 
 class Notification(BaseModel):
     title: str
-    message: str
-
-    def __str__(self):
-        return f"Title: {self.title}, Message: {self.message}"
+    body: str
 
 
 @app.post("/notification")
 async def notification(message: Notification):
     channel = RabbitMQ().get_channel()
-    send_notification(str(message), channel)
+    send_notification(json.dumps(dict(message)), channel)
     return {"message": "Notification sent successfully"}
 
 
