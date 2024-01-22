@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 class RabbitMQ:
     def __init__(self):
-        self.host = '192.168.100.141'
+        self.host = '54.226.251.57'
         self.username = RABBITMQ_USERNAME
         self.password = RABBITMQ_PASSWORD
         
@@ -17,7 +17,7 @@ class RabbitMQ:
             self.channel.exchange_declare(exchange='g_notifications', exchange_type='fanout')
             logger.info('Connection to RabbitMQ successful')
         except Exception as e:
-            print(e)
+            print('buenoe', e)
 
     def get_channel(self):
         return self.channel
